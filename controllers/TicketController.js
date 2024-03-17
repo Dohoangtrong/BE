@@ -1,9 +1,8 @@
 import { exec }  from 'child_process'
 
 export const getListRecommendFilm = async (req, res, next) => {
-    // Thực thi file Python từ Node.js
     try{
-        exec('python run.py listRecommend', (error, stdout, stderr) => {
+        exec('python main.py listRecommend', (error, stdout, stderr) => {
             if (error) {
                 res.status(500).json({errors: error.message})
                 console.error(`Lỗi: ${error.message}`);
@@ -22,10 +21,9 @@ export const getListRecommendFilm = async (req, res, next) => {
     }
 }
     
-export const acb = async (req, res, next) => {
-    // Thực thi file Python từ Node.js
+export const listUserNotRecommend = async (req, res, next) => {
     try{
-        exec('python run.py abc', (error, stdout, stderr) => {
+        exec('python main.py abc', (error, stdout, stderr) => {
         if (error) {
             res.status(500).json({errors: error.message})
             console.error(`Lỗi: ${error.message}`);

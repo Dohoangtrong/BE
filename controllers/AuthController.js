@@ -49,3 +49,15 @@ export const login = async (req, res, next) => {
     next(err);
   }
 };
+export const forgotPassword = async (req, res, next) => {
+  try {
+    console.log(req.body.username);
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) return next(createError(404, "User not found!"));
+
+    
+
+  } catch (err) {
+    next(err);
+  }
+};
