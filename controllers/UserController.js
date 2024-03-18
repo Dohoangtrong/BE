@@ -36,3 +36,16 @@ export const getUsers = async (req,res,next)=>{
     next(err);
   }
 }
+
+export const saveToken = async ( req, res, next )=>{
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { username : req.body.username },
+      { $set: { token: req.token } },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+}

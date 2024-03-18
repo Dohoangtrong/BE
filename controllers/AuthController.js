@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/CreateError.js";
 import jwt from "jsonwebtoken";
+import { sendEmailAuth } from "./EmailController.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -49,13 +50,13 @@ export const login = async (req, res, next) => {
     next(err);
   }
 };
+
 export const forgotPassword = async (req, res, next) => {
   try {
     console.log(req.body.username);
     const user = await User.findOne({ username: req.body.username });
-    if (!user) return next(createError(404, "User not found!"));
 
-    
+    const token = await User.findById()
 
   } catch (err) {
     next(err);

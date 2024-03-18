@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
 import { OAuth2Client } from 'google-auth-library'
+import {saveToken} from '../controllers/UserController.js'
 
 // https://trungquandev.com/nodejs-viet-api-gui-email-voi-oauth2-va-nodemailer/
 // --
@@ -56,6 +57,8 @@ export const sendEmailAuth = async(req, res, next) => {
         })
         
         const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+        req.token = randomNumber;
+
         const message = generateMessage(randomNumber);
         const mailOptions = {
           to: req.body.email, 
@@ -64,10 +67,12 @@ export const sendEmailAuth = async(req, res, next) => {
         }
 
         await transport.sendMail(mailOptions)
-        res.status(200).json({ message: 'Email sent successfully.' })
+        //res.status(200).json({ message: 'Email sent successfully.' })
+        next();
       } catch (error) {
         console.log(error)
-        res.status(500).json({ errors: error.message })
+        //res.status(500).json({ errors: error.message })
+        next(error);
       }
 }
 

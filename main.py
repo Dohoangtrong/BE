@@ -22,4 +22,3 @@ if __name__ == "__main__":
             print("Hàm không tồn tại.")
     else:
         print("Vui lòng cung cấp tên của hàm cần gọi.")
-#hello()
