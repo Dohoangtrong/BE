@@ -2,7 +2,6 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/CreateError.js";
 import jwt from "jsonwebtoken";
-import { sendEmailAuth } from "./EmailController.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -14,7 +13,7 @@ export const register = async (req, res, next) => {
       email:req.body.email,
       password: hash,
     });
-
+    
     await newUser.save();
     res.status(200).send("User has been created.");
   } catch (err) {

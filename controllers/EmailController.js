@@ -9,11 +9,10 @@ import {saveToken} from '../controllers/UserController.js'
 // https://developers.google.com/oauthplayground/
 
 
-
-// const CLIENT_ID = ''
-// const CLIENT_SECRET = ''
-// const REFRESH_TOKEN = ''
-// const ADMIN_EMAIL_ADDRESS = ''
+const CLIENT_ID = ''
+const CLIENT_SECRET = ''
+const REFRESH_TOKEN = ''
+const ADMIN_EMAIL_ADDRESS = ''
 
 const generateMessage = (randomNumber) => {
   return `
@@ -67,11 +66,9 @@ export const sendEmailAuth = async(req, res, next) => {
         }
 
         await transport.sendMail(mailOptions)
-        //res.status(200).json({ message: 'Email sent successfully.' })
         next();
       } catch (error) {
         console.log(error)
-        //res.status(500).json({ errors: error.message })
         next(error);
       }
 }
