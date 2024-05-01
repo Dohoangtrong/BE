@@ -14,7 +14,8 @@ export const getListRecommendFilm = async (req, res, next) => {
                 return;
             }
             console.log(`Kết quả: ${stdout}`);
-            res.status(200).json({ message: 'done!' })
+            req.list_recommend = stdout;
+            next();
         });
     } catch(error) {
         res.status(504).json({ errors: error.message })
@@ -23,7 +24,7 @@ export const getListRecommendFilm = async (req, res, next) => {
     
 export const listUserNotRecommend = async (req, res, next) => {
     try{
-        exec('python main.py abc', (error, stdout, stderr) => {
+        exec('python main.py list_Collaborative_Filtering', (error, stdout, stderr) => {
         if (error) {
             res.status(500).json({errors: error.message})
             console.error(`Lỗi: ${error.message}`);

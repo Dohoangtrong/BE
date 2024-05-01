@@ -1,38 +1,21 @@
 import pandas as pd
-# import data_function as get_dataframe_movies_csv
-# import function as tfidf_matrix
-# import function as cosine_sim
-from sklearn.metrics.pairwise import linear_kernel
-from sklearn.feature_extraction.text import TfidfVectorizer
+import RS.data_function as data_function
+import RS.function as function
+import RS.function as function
 
 #https://machinelearningcoban.com/2017/05/17/contentbasedrecommendersys/
 
-def tfidf_matrix(movies):
-    tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 1), min_df=0.01)
-    new_tfidf_matrix = tf.fit_transform(movies['genres'])
-    return new_tfidf_matrix
-
-
-def cosine_sim(matrix):
-    new_cosine_sim = linear_kernel(matrix, matrix)
-    return new_cosine_sim
-
-def get_dataframe_movies_csv(text):
-    movie_cols = ['movie_id', 'title', 'genres']
-    movies = pd.read_csv(text, sep=',', names=movie_cols, encoding='latin-1')
-    return movies
-
 class CB(object):
     def __init__(self, movies_csv):
-        self.movies = get_dataframe_movies_csv(movies_csv)
+        self.movies = data_function.get_dataframe_movies_csv(movies_csv)
         self.tfidf_matrix = None
         self.cosine_sim = None
 
     def build_model(self):
         self.movies['genres'] = self.movies['genres'].str.split('|')
         self.movies['genres'] = self.movies['genres'].fillna("").astype('str')
-        self.tfidf_matrix = tfidf_matrix(self.movies)
-        self.cosine_sim = cosine_sim(self.tfidf_matrix)
+        self.tfidf_matrix = function.tfidf_matrix(self.movies)
+        self.cosine_sim = function.cosine_sim(self.tfidf_matrix)
 
     def refresh(self):
         self.build_model()
@@ -55,8 +38,9 @@ class CB(object):
 
     def get_recommendations(self, text, top_x):
         list_similarity, list_movies_cb = self.genre_recommendations(text, top_x)
-        for i in list_similarity:
-            print(i)
-        print('----')
-        for i in list_movies_cb:
-            print(i)
+        json_data = []
+        print("[",end="")
+        for i in range(top_x):
+            print('{"id":',list_similarity[i][0],',"similarity":',list_similarity[i][1],',"name":"',list_movies_cb[i],'"}', end="")
+            if ( i != top_x-1 ): print(",")
+        print("]")

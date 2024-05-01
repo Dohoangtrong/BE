@@ -1,8 +1,5 @@
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
-import pandas
-from pandas import isnull, notnull
-
 
 def tfidf_matrix(movies):
     tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 1), min_df=0.01)
