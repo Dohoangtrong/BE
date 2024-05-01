@@ -10,10 +10,10 @@ import {saveToken} from '../controllers/UserController.js'
 
 
 
-const CLIENT_ID = ''
-const CLIENT_SECRET = ''
-const REFRESH_TOKEN = ''
-const ADMIN_EMAIL_ADDRESS = ''
+// const CLIENT_ID = ''
+// const CLIENT_SECRET = ''
+// const REFRESH_TOKEN = ''
+// const ADMIN_EMAIL_ADDRESS = ''
 
 const generateMessage = (randomNumber) => {
   return `
