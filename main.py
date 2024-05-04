@@ -6,7 +6,7 @@ import sys
 def listRecommend():
     cb_rs = Content_Base.CB('movies.csv')
     cb_rs.fit()
-    cb_rs.get_recommendations('Coco', 10)
+    cb_rs.get_recommendations('Coco', 9)
 
 def list_Collaborative_Filtering():
     data_matrix = data_function.get_dataframe_ratings_base('ub.base')
